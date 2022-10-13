@@ -1,0 +1,29 @@
+﻿<Window x:Class="SaperCS.MainWindow"
+        xmlns:emoji="clr-namespace:Emoji.Wpf;assembly=Emoji.Wpf"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SaperCS"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800">
+
+    <Grid Background="SlateGray">
+        <emoji:TextBlock Name="MineField" FontSize="35" HorizontalAlignment="Center" TextWrapping="NoWrap" Width="474" Height="464" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" >
+            <emoji:TextBlock.Effect>
+                <DropShadowEffect/>
+            </emoji:TextBlock.Effect>
+        </emoji:TextBlock>
+        <TextBlock HorizontalAlignment="Left" Height="105" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="123" FontSize="15" TextAlignment="Center" FontWeight="Bold"><Run Text="SaperC#"/><LineBreak/><Run/><LineBreak/><Run Text="Wiatj, wybierz poziom trudności:"/></TextBlock>
+        <RadioButton Name="easy" FontSize="18" Content="Łatwy" HorizontalAlignment="Left" Height="23" Margin="10,137,0,0" VerticalAlignment="Top" Width="123" GroupName="Level"/>
+        <RadioButton Name="medium" FontSize="18" Content="Średni" HorizontalAlignment="Left" Height="23" Margin="10,165,0,0" VerticalAlignment="Top" Width="123" GroupName="Level"/>
+        <RadioButton Name="hard" FontSize="18" Content="Trudny" HorizontalAlignment="Left" Height="23" Margin="10,193,0,0" VerticalAlignment="Top" Width="123" GroupName="Level"/>
+
+        <Button Name="start" Content="Nowa Gra" FontSize="15" FontWeight="Bold" Margin="10,256,667,181" Click="NewGame">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+
+    </Grid>
+</Window>
