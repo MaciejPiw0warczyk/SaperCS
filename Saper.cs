@@ -4,18 +4,30 @@ namespace SaperCS
 {
     public static class Saper
     {
-        public static string field;
+        public static string field = "";
         private static Random rand = new Random();
 
         public static void CreateField(int width, int height, int BombCount)
         {
-            int x = 0, y = 0;
 
-            int[,] intfield;
-            intfield = new int[height, width];
+            int x, y;
+            int[,] intfield = new int[height, width]; ;
 
             for (int i = 0; i < BombCount; i++)
-                intfield[rand.Next(0, height), rand.Next(0, width)] = 9;
+                // intfield[rand.Next(0, height), rand.Next(0, width)] = 9;
+
+                intfield[2, 1] = 9;
+            intfield[4,1]=9;
+            intfield[7,2]=9;
+            intfield[7,4]=9;
+            intfield[6,7]=9;
+            intfield[5,7]=9;
+            intfield[6,9]=9;
+            intfield[4,9]=9;
+            intfield[1,6]=9;
+            intfield[2,8]=9;
+
+
 
 
             for (int i = 0; i < height; i++)
@@ -60,6 +72,8 @@ namespace SaperCS
             {
                 if (block == 9)
                     field += 'B';
+                else if (block == 0)
+                    field += " ";
                 else
                     field += block;
             }

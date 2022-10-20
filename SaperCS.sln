@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaperCS", "SaperCS.csproj", "{69308AA4-635B-45AA-91E0-8471F712A2F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaperCS", "SaperCS.csproj", "{69308AA4-635B-45AA-91E0-8471F712A2F1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kocham Cię!!", "..\Kocham Cię!!\Kocham Cię!!.csproj", "{DCC20F5D-5998-46DD-8ECF-3865DEB39522}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{69308AA4-635B-45AA-91E0-8471F712A2F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69308AA4-635B-45AA-91E0-8471F712A2F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69308AA4-635B-45AA-91E0-8471F712A2F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCC20F5D-5998-46DD-8ECF-3865DEB39522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCC20F5D-5998-46DD-8ECF-3865DEB39522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCC20F5D-5998-46DD-8ECF-3865DEB39522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCC20F5D-5998-46DD-8ECF-3865DEB39522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

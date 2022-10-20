@@ -15,7 +15,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-<!--
+        <!--
         <emoji:TextBlock Grid.Column="1" Name="MineField" FontSize="35" HorizontalAlignment="Center" TextWrapping="NoWrap" Width="474" Height="464" VerticalAlignment="Center" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" TextAlignment="Center">
             <emoji:TextBlock.Effect>
                 <DropShadowEffect/>
@@ -37,9 +37,10 @@
             <Grid.Effect>
                 <DropShadowEffect/>
             </Grid.Effect>
-            
+
         </Grid>
-        <Button Grid.Column="0" Content="Test" HorizontalAlignment="Left" Height="29" Margin="55,352,0,0" VerticalAlignment="Top" Width="74" Click="Test"/>
+        <Button Grid.Column="0" Content="Test" HorizontalAlignment="Left" Height="29" Margin="55,352,0,0" VerticalAlignment="Top" Width="74" />
+        <TextBlock Name="debug" HorizontalAlignment="Left" Height="56" Margin="66,415,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="52"/>
 
     </Grid>
 </Window>
