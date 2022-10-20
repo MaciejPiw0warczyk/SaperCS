@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 
 namespace SaperCS
 {
@@ -21,6 +22,7 @@ namespace SaperCS
             InitializeComponent();
             NewMineField.ShowGridLines = true;
         }
+        int width = 0, height = 0, bombCount = 0;
         private void NewGame(object sender, RoutedEventArgs e)
         {
             Saper.Init();
@@ -31,7 +33,6 @@ namespace SaperCS
             textBlocksList.Clear();
             list.Clear();
 
-            int width = 0, height = 0, bombCount = 0;
 
             if ((bool)easy.IsChecked)
             { width = 10; height = 8; bombCount = 8; }
@@ -67,27 +68,20 @@ namespace SaperCS
                     else
                         block.Text += Saper.field[index];
                     index++;
-
-                    textBlocksList.Add(block);
                     NewMineField.Children.Add(block);
 
-                }
+                    textBlocksList.Add(block);
 
-
-
-
-            for (int i = 0; i < height; i++)
-                for (int j = 0; j < width; j++)
-                {
                     Button button = new Button();
-                    string text = "Index" + i.ToString() + j.ToString();
+                    text = "Index" + k.ToString() + j.ToString();
                     button.Name = text;
-                    button.Uid = i.ToString() + j.ToString();
-                    button.SetValue(Grid.RowProperty, i);
+                    button.Uid = k.ToString() + j.ToString();
+                    button.SetValue(Grid.RowProperty, k);
                     button.SetValue(Grid.ColumnProperty, j);
                     button.Click += OnButtonPress;
                     button.Background = Brushes.Honeydew;
                     button.Content = "H";
+                    button.Effect = new DropShadowEffect();
                     NewMineField.Children.Add(button);
 
                     buttonList.Add(button);
@@ -96,163 +90,59 @@ namespace SaperCS
 
         private void OnButtonPress(object sender, RoutedEventArgs e)
         {
-            int index = 0;
+            int index = 0, offset;
+            var column = Grid.GetColumn((UIElement)sender);
+            var row = Grid.GetRow((UIElement)sender);
 
-            for (int i = 0; i < buttonList.Count; i++)
-                if (buttonList[i].Uid == ((FrameworkElement)sender).Uid)
-                { index = i; NewMineField.Children.Remove(buttonList[i]); list.Add(i); break; }
+            foreach (var buton in buttonList)
+                if (Grid.GetColumn(buton) == column && Grid.GetRow(buton) == row)
+                    index = buttonList.IndexOf(buton);
+            if (textBlocksList[index].Text == " ")
+                list.Add(index);
+            else
+                NewMineField.Children.Remove(buttonList[index]);
 
-            //var tem = index;
-
-            //while (tem<textBlocksList.Count)
-            //{
-            //    tem = index;
-
-            //    while (textBlocksList[tem].Text == " ")
-            //    {
-            //        if (tem - 11 >= 0 && textBlocksList[tem - 11].Text == " ")
-            //            list.Add(tem - 11);
-            //        if (tem - 10 >= 0 && textBlocksList[tem - 10].Text == " ")
-            //            list.Add(tem - 10);
-            //        if (tem - 9 >= 0 && textBlocksList[tem - 9].Text == " ")
-            //            list.Add(tem - 9);
-            //        if (tem - 1 >= 0 && textBlocksList[tem - 1].Text == " ")
-            //            list.Add(tem - 1);
-            //        if (tem + 1 <= textBlocksList.Count && textBlocksList[tem + 1].Text == " ")
-            //            list.Add(tem + 1);
-            //        if (tem + 9 <= textBlocksList.Count && textBlocksList[tem + 9].Text == " ")
-            //            list.Add(tem + 9);
-            //        if (tem + 10 <= textBlocksList.Count && textBlocksList[tem + 10].Text == " ")
-            //            list.Add(tem + 10);
-            //        if (tem + 11 <= textBlocksList.Count && textBlocksList[tem + 11].Text == " ")
-            //            list.Add(tem + 11);
-            //        tem++;
-            //    }
-            //}
-
-            for (int j = 0; j < list.Count; j++)
+            for (int i = 0; i < list.Count; i++)
             {
-                int i = list[j];
+                var x = list[i];
 
-                var temp = i-11;
-                if (temp >= 0 && textBlocksList[temp].Text == " ") //&& GetPlace(index, 10) == GetPlace(temp, 10))
+                offset = (width + 1) * -1;
+                for (int k = 0; k < 3; k++)
                 {
-                    if (textBlocksList[temp].Text == " " && !list.Contains(temp))
-                        list.Add(temp);
+                    for (int j = 0; j < 3; j++)
+                    {
+                        var io = x + offset;
+                        if (!((offset == -1 || offset == ((width + 1) * -1) || offset == (width - 1)) && Grid.GetColumn(buttonList[x]) == 0))
+                            if (!((offset == 1 || offset == (width + 1) || offset == ((width - 1) * -1)) && Grid.GetColumn(buttonList[x]) == width - 1))
+                                if (io >= 0 && io < buttonList.Count && textBlocksList[io].Text == " ")
+                                    if (!list.Contains(io))
+                                        list.Add(io);
+                        offset++;
+                    }
+                    offset += width - 3;
                 }
-
-                temp = i - 10;
-                if (temp >= 0 && textBlocksList[temp].Text == " ") //&& GetPlace(index, 10) == GetPlace(temp-11, 10))
-                {
-                    if (textBlocksList[temp].Text == " " && !list.Contains(temp))
-                        list.Add(temp);
-                }
-
-                temp = i - 9;
-                if (temp >= 0 && textBlocksList[temp].Text == " ") //&& GetPlace(index, 10) == GetPlace(temp, 10))
-                {
-                    if (textBlocksList[temp].Text == " " && !list.Contains(temp))
-                        list.Add(temp);
-                }
-
-                temp = i - 1;
-                if (temp >= 0 && textBlocksList[temp].Text == " ") //&& GetPlace(index, 10) == GetPlace(temp, 10))
-                {
-                    if (textBlocksList[temp].Text == " " && !list.Contains(temp))
-                        list.Add(temp);
-                }
-
-                temp = i+1;
-                if (temp <= textBlocksList.Count && textBlocksList[temp].Text == " ") //&& GetPlace(index, 10) == GetPlace(temp, 10))
-                {
-                    if (textBlocksList[temp].Text == " " && !list.Contains(temp))
-                        list.Add(temp);
-                }
-
-                temp = i + 9;
-                if (temp <= textBlocksList.Count && textBlocksList[temp].Text == " ") //&& GetPlace(index, 10) == GetPlace(temp, 10))
-                {
-                    if (textBlocksList[temp].Text == " " && !list.Contains(temp))
-                        list.Add(temp);
-                }
-
-                temp = i + 10;
-                if (temp <= textBlocksList.Count && textBlocksList[temp].Text == " ") //&& GetPlace(index, 10) == GetPlace(temp, 10))
-                {
-                    if (textBlocksList[temp].Text == " " && !list.Contains(temp))
-                        list.Add(temp);
-                }
-
-                temp = i + 11;
-                if (temp <= textBlocksList.Count && textBlocksList[temp].Text == " ") //&& GetPlace(index, 10) == GetPlace(temp, 10))
-                {
-                    if (textBlocksList[temp].Text == " " && !list.Contains(temp))
-                        list.Add(temp);
-                }
-
             }
 
-            foreach (var item in list)
-                NewMineField.Children.Remove(buttonList[index]);
+
+
+            foreach (var loc in list)
+            {
+                offset = (width + 1) * -1;
+                for (int k = 0; k < 3; k++)
+                {
+                    for (int j = 0; j < 3; j++)
+                    {
+                        var io = loc + offset;
+                        if (!((offset == -1 || offset == ((width + 1) * -1) || offset == (width - 1)) && Grid.GetColumn(buttonList[loc]) == 0))
+                            if (!((offset == 1 || offset == (width + 1) || offset == ((width - 1) * -1)) && Grid.GetColumn(buttonList[loc]) == width - 1))
+                                if (io >= 0 && io < buttonList.Count)
+                                    NewMineField.Children.Remove(buttonList[io]);
+                        offset++;
+                    }
+                    offset += width - 3;
+                }
+            }
         }
-
-        //    private void VerticalSweep(int index, bool b)
-        //    {
-        //        for (int i = index + 10; i < buttonList.Count; i += 10)
-        //        {
-        //            if (textBlocksList[i].Text == " " || textBlocksList[i - 10].Text == " ")
-        //            { NewMineField.Children.Remove(buttonList[i]); if (b) { HorizontalSweep(i); } }
-        //            else
-        //                break;
-        //            if (textBlocksList[i].Text == " ")
-        //            { NewMineField.Children.Remove(buttonList[i]); if (b) { HorizontalSweep(i); } list.Add(i); }
-        //            else
-        //                break;
-        //        }
-
-        //        for (int i = index - 10; i >= 0; i -= 10)
-        //        {
-        //            if (textBlocksList[i].Text == " " || textBlocksList[i + 10].Text == " ")
-        //            { NewMineField.Children.Remove(buttonList[i]); if (b) { HorizontalSweep(i); } }
-        //            else
-        //                break;
-        //            if (textBlocksList[i].Text == " ")
-        //            { NewMineField.Children.Remove(buttonList[i]); if (b) { HorizontalSweep(i); } list.Add(i); }
-        //            else
-        //                break;
-        //        }
-
-        //    }
-        //    private void HorizontalSweep(int index)
-        //{
-
-        //    for (int i = index + 1; GetPlace(index, 10) == GetPlace(i, 10) || i < 10 && i < textBlocksList.Count; i += 1)
-        //    {
-        //        if (textBlocksList[i].Text == " " || textBlocksList[i - 1].Text == " ")
-        //        { NewMineField.Children.Remove(buttonList[i]); VerticalSweep(i, false); }
-        //        else
-        //            break;
-        //        if (textBlocksList[i].Text == " ")
-        //        { NewMineField.Children.Remove(buttonList[i]); VerticalSweep(i, false); list.Add(i); }
-        //        else
-        //            break;
-
-        //    }
-
-        //    for (int i = index - 1; GetPlace(index, 10) == GetPlace(i, 10) && i >= 0; i -= 1)
-        //    {
-        //        if (textBlocksList[i].Text == " " || textBlocksList[temp].Text == " ")
-        //        { NewMineField.Children.Remove(buttonList[i]); VerticalSweep(i, false); }
-        //        else
-        //            break;
-        //        if (textBlocksList[i].Text == " ")
-        //        { NewMineField.Children.Remove(buttonList[i]); VerticalSweep(i, false); list.Add(i); }
-        //        else
-        //            break;
-        //    }
-
-        //}
-
 
         public int GetPlace(int value, int place)
         {

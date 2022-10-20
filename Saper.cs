@@ -14,18 +14,19 @@ namespace SaperCS
             int[,] intfield = new int[height, width]; ;
 
             for (int i = 0; i < BombCount; i++)
-                // intfield[rand.Next(0, height), rand.Next(0, width)] = 9;
-
-                intfield[2, 1] = 9;
-            intfield[4,1]=9;
-            intfield[7,2]=9;
-            intfield[7,4]=9;
-            intfield[6,7]=9;
-            intfield[5,7]=9;
-            intfield[6,9]=9;
-            intfield[4,9]=9;
-            intfield[1,6]=9;
-            intfield[2,8]=9;
+              intfield[rand.Next(0, height), rand.Next(0, width)] = 9;
+              
+            
+            //intfield[2,1]=9;
+            //intfield[4,1]=9;
+            //intfield[7,2]=9;
+            //intfield[7,4]=9;
+            //intfield[6,7]=9;
+            //intfield[5,7]=9;
+            //intfield[6,9]=9;
+            //intfield[4,9]=9;
+            //intfield[1,6]=9;
+            //intfield[2,8]=9;
 
 
 
